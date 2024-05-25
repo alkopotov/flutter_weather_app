@@ -3,13 +3,17 @@ import 'package:elementary/elementary.dart';
 import 'package:elementary_helper/elementary_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_app/domain/models/weather_model.dart';
-import 'package:weather_app/domain/repository.dart';
-import 'package:weather_app/home/home_model.dart';
-import 'package:weather_app/home/home_widget.dart';
+import 'package:weather_app/domain/repository_weather.dart';
+import 'package:weather_app/weather/weather_model.dart';
+import 'package:weather_app/weather/weather_widget.dart';
 
 
 abstract interface class IWeatherScreenWidgetModel implements IWidgetModel{
-  ValueNotifier<EntityState<Weather>> get weatherListenable;
+  ValueNotifier<EntityState<List<Weather>>> get weatherListenable;
+  
+
+  Future<void> loadWeather();
+
 }
 
 WeatherScreenWidgetModel defaultHomeScreenWidgetModelFactory(BuildContext context) {
@@ -21,20 +25,20 @@ class WeatherScreenWidgetModel extends  WidgetModel<WeatherScreen, IWeatherScree
 
   WeatherScreenWidgetModel(super.model);
 
-  final _weatherEntity = EntityStateNotifier<Weather>();
+  final _weatherEntity = EntityStateNotifier<List<Weather>>();
 
   @override
-  ValueNotifier<EntityState<Weather>> get weatherListenable => _weatherEntity;
+  ValueNotifier<EntityState<List<Weather>>> get weatherListenable => _weatherEntity;
 
 
   @override
   void initWidgetModel() {
-    _loadWeather();
+    loadWeather();
     super.initWidgetModel();
   }
-
-
-  Future<void> _loadWeather() async {
+  
+  @override
+  Future<void> loadWeather() async {
     _weatherEntity.loading();
 
     final weather = await model.getWeather();

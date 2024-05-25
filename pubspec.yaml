@@ -38,6 +38,8 @@ dependencies:
   dio: ^5.4.3+1
   elementary: ^3.0.0
   elementary_helper: ^1.0.1
+  flutter_svg: ^2.0.10+1
+  intl: ^0.19.0
 
 dev_dependencies:
   flutter_test:
@@ -62,9 +64,35 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/images/overcast.svg
+    - assets/images/mainly_clear.svg
+    - assets/images/clear.svg
+    - assets/images/partly_cloudy.svg
+    - assets/images/fog.svg
+    - assets/images/rime_fog.svg
+    - assets/images/drizzle.svg
+    - assets/images/freezing_drizzle.svg
+    - assets/images/light_rain.svg
+    - assets/images/rain.svg
+    - assets/images/heavy_rain.svg
+    - assets/images/freezing_rain.svg
+    - assets/images/light_snow.svg
+    - assets/images/snow.svg
+    - assets/images/heavy_snow.svg
+    - assets/images/snow_grains.svg
+    - assets/images/rain_showers_light.svg
+    - assets/images/rain_showers.svg
+    - assets/images/rain_showers_heavy.svg
+    - assets/images/snow_fall_light.svg
+    - assets/images/snow_fall_heavy.svg
+    - assets/images/thunderstorm.svg
+    - assets/images/thunderstorm_hail.svg
+    - assets/images/barometer.svg
+    - assets/images/hygrometer.svg
+    - assets/images/sunrise.png
+    - assets/images/sunset.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
