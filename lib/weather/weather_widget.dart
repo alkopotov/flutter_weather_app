@@ -31,10 +31,13 @@ class WeatherScreen extends ElementaryWidget<IWeatherScreenWidgetModel> {
   @override
   Widget build(IWeatherScreenWidgetModel wm) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          backgroundColor: Colors.amber[50],
+          title: const Text('Погода в Москве'),
+        ),
         body: Center(
           child: Column(children: [
-            // const SizedBox(height: 10),
+            const SizedBox(height: 10),
             EntityStateNotifierBuilder<List<Weather>>(
               listenableEntityState: wm.weatherListenable,
               loadingBuilder: (context, data) => const Text('Loading...'),
@@ -118,7 +121,7 @@ class WeatherScreen extends ElementaryWidget<IWeatherScreenWidgetModel> {
                                     Row(
                                       children: [
                                         const Icon(Icons.water_drop_outlined,
-                                            size: 40),
+                                            size: 40, color: Colors.blue),
                                         Column(
                                           children: [
                                             Text(
@@ -151,7 +154,7 @@ class WeatherScreen extends ElementaryWidget<IWeatherScreenWidgetModel> {
                                           ),
                                         ),
                                         const Icon(Icons.wind_power_outlined,
-                                            size: 36, color: Colors.blue),
+                                            size: 36, color: Colors.grey),
                                       ],
                                     ),
                                   ]),
@@ -170,7 +173,8 @@ class WeatherScreen extends ElementaryWidget<IWeatherScreenWidgetModel> {
                                           SvgPicture.asset(
                                               'assets/images/hygrometer.svg',
                                               width: 36,
-                                              height: 36),
+                                              height: 36,
+                                              color: Colors.blue),
                                           Padding(
                                             padding: const EdgeInsets.all(6.0),
                                             child: Text(
@@ -203,7 +207,7 @@ class WeatherScreen extends ElementaryWidget<IWeatherScreenWidgetModel> {
                                               'assets/images/barometer.svg',
                                               width: 38,
                                               height: 38,
-                                              color: Colors.blue),
+                                              color: Colors.grey),
                                         ],
                                       )
                                     ]),
@@ -217,6 +221,13 @@ class WeatherScreen extends ElementaryWidget<IWeatherScreenWidgetModel> {
                         style: const TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold)),
                     ...data.sublist(1).map((e) => forecastItem(data: e)),
+                    // ListView.builder(
+                    //    itemCount: 3,
+                    //   itemBuilder: (context, index) => ForecastItem(data: data[index + 1]),
+                    // ),
+                    const SizedBox(
+                      height: 6,
+                    ),
                     ElevatedButton(
                         onPressed: () {
                           wm.loadWeather();
