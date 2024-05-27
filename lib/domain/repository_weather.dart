@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:weather_app/domain/repository_location.dart';
 
 import 'icon_data.dart';
 import 'models/weather_model.dart';
@@ -9,10 +10,13 @@ class WeatherRepository {
   
   static const String baseUrl = 'https://api.open-meteo.com/v1/forecast?latitude=55.7522&longitude=37.6156&current=temperature_2m,relative_humidity_2m,precipitation_probability,precipitation,weather_code,wind_speed_10m,surface_pressure&daily=sunrise,sunset,weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,wind_speed_10m_max&timezone=Europe%2FMoscow';
   Dio dio = Dio();
+  LocationRepository locationRepository = LocationRepository();
 
   Future<List<Weather>> getWeather() async {
     late List<Weather> weatherForecast = [];
-    final res = await dio.get(baseUrl);
+
+    final location = await locationRepository.getLocation();
+    final res = await dio.get('https://api.open-meteo.com/v1/forecast?latitude=${location['latitude']}&longitude=${location['longitude']}&current=temperature_2m,relative_humidity_2m,precipitation_probability,precipitation,weather_code,wind_speed_10m,surface_pressure&daily=sunrise,sunset,weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,wind_speed_10m_max&timezone=Europe%2FMoscow');
     final currentWeather = Weather.fromJson((res.data));
     weatherForecast.add(currentWeather);
 
@@ -35,6 +39,8 @@ class WeatherRepository {
 
       weatherForecast.add(newDayWeather);
     }
+    print(location['latitude']);
+    print(location['longitude']);
     return weatherForecast;
   }
 }
